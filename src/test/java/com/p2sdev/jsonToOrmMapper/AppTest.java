@@ -65,10 +65,13 @@ public class AppTest
     			"	person_id = models.AutoField(primary_key=True)\r\n" + 
     			"	f_name = models.CharField(max_length=100)\r\n" + 
     			"	l_name = models.CharField(max_length=100)\r\n" + 
-    			"	\n" + 
+    			"	\r\n" + 
     			"";
     	
+    	expected = expected.replaceAll("\\n|\\r\\n|\\r|\\t", "");
+    	
     	String actual = new JSONToConverter("{'person': {'f_name':'John', 'l_name':'Doe'} }").getORMModel(ORMModel.DJANGO_MODEL);
+    	actual = actual.replaceAll("\\n|\\r\\n|\\r|\\t", "");
     	
     	assertEquals(expected, actual);
     }
