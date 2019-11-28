@@ -26,4 +26,4 @@ new JSONToConverter(stringJsonContent).getSQL(DATABASE.POSTGRES, SQLOperation.CR
 Converting 
 ![json to be converted](https://github.com/PSteph/jsonToOrmMapper/tree/master/images/personJson.png)
 JSON converted into Django Model
-![corresponding Django Model](https://github.com/PSteph/jsonToOrmMapper/tree/master/images/person-djangoModel.png)
+![corresponding Django Model](https://github.com/PSteph/jsonToOrmMapper/blob/master/images/person-djangoModel.png)
