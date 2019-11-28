@@ -58,14 +58,14 @@ public class JSONToConverter extends MapJsonToTable implements JSONTo{
 		return sql;
 	}
 	
-	private String getSql(Database db, SQLOperation operation) {
+	private String getSql(Database postgreSQL, SQLOperation operation) {
 		String sql = "";
 		switch(operation) {
 			case CREATE:
-				sql = db.getSQLCreate(getTables());
+				sql = postgreSQL.getSQLCreate(getTables());
 				break;
 			case CREATE_INSERT:
-				sql = db.getSQLInsert(getTables());
+				sql = postgreSQL.getSQLInsert(getTables());
 				break;
 		}
 		return sql;
