@@ -2,7 +2,7 @@
 
 This tool will allow you to quickly prototype your ORM for Django and Hibernate from a JSON Object you will provide. It can also generate SQL create statements for Postgresql from the same JSON Object.
 
-For more information about the tool you can head to [this article on medium](https://) that provides further information about the tool, the why it was build and the approach.
+For more information about the tool you can head to [this article on medium](https://medium.com/@piedjoustephane/prototyping-object-relational-mapping-orm-model-from-a-json-object-96eb0ea05ad4) that provides further information about the tool, the why it was build and the approach.
 You can also visit [Json to ORM converter tool online](https://www.p2sdev.com/projects/json-to-orm-converter)
 
 ## How to use it
