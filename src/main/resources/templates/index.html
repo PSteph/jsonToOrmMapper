@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+        integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+        crossorigin=""/>
+
+    <link rel="stylesheet" href="css/style.css">
+    <title>BopUniv</title>
+  </head>
+  <body class="bu-bg-light-blue" style="background-color: #FF3737;background-image: url('images/bg-body.png');">
+    <div th:replace="~{fragments/header :: header}">Header</div>
+    <div class="main">
+        <div class="container-fluid">
+            <div class="row no-gutter">
+                <div class="col-12 col-md-6 p-sm-3 p-md-5">
+                    <h2 class="font-weight-bold bu-color-white" style="font-size: 3rem;font-family: sans-serif;">
+                        Toutes les formations académiques en un seul endroit
+                    </h2>
+                    <p class="mt-4 bu-color-white" style="font-size: 1.5rem;">
+                        Nous vous aidons à trouver les 
+                        formations et centres de 
+                        formation qui répondent à vos 
+                        aspirations de carrière
+                    </p>
+                    <a class="mt-4 p-2 btn btn-danger" href="training.html">Find a training</a>
+                </div>
+
+                <div class="d-none d-sm-block col-md-6">
+                        <img src="images/bg-home.png" width="450">
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    </body>
+</html>

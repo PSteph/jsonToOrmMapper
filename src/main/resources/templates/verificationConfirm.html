@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+    <title>Registration successful</title>
+</head>
+<body class="bu-bg-light-blue">
+<div th:replace="~{fragments/header :: header}">Header</div>
+
+<div class="main mt-5">
+    <div class="container">
+        <div class="row justify-content-center no-gutters">
+            <div class="col-12 col-md-10 col-lg-8 bu-bg-white" style="border-radius: 5px;">
+
+                <div class="row no-gutters">
+                    <div class="col-12 p-4">
+                        <h4 class="font-weight-bold  mb-5 mt-5 text-center" th:text="#{message.verification.successful.title}">Thank you for verifying your account</h4>
+                        <p class="mb-5" style="font-size:1.1em;" th:utext="#{message.verification.successful.content}"></p>
+                        <a href="/login" class="btn bu-bg-gray bu-color-white pl-4 pr-4" th:text="#{message.login}"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+</body>
+</html>

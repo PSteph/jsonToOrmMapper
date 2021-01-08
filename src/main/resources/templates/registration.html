@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+    <title>Register</title>
+  </head>
+  <body class="bu-bg-light-blue">
+
+    <div th:replace="~{fragments/header :: header}">Header</div>
+
+    <div class="main mt-5 mb-5">
+        <div class="container">
+            <div class="row justify-content-center no-gutters">
+            <div class="col-9 col-sm-7 col-md-5 bu-bg-white">
+              <div class="row no-gutters bu-bg-primary">
+                  <div class="col-12 p-3 mx-auto">
+                      <img src="images/logo.png" width="100">
+                  </div>
+              </div>
+              <div class="row no-gutters">
+                  <div class="col-12 p-4">
+                      <form action="/" method="POST" enctype="utf8">
+                          <div class="form-group">
+                              <label class="col-form-label" for="buFirstName" th:text="#{label.user.firstName}">first</label>
+                              <input id="buFirstName" class="form-control bu-input-text" value="" name="firstName"/>
+                              <small id="firstNameHelp" class="form-text text-danger" style="display:none" th:text="#{message.firstName}">First name cannot be empty</small>
+                          </div>
+                          <div class="form-group">
+                              <label for="buLastName" class="ol-form-label mt-3" th:text="#{label.user.lastName}">last</label>
+                              <input class="form-control bu-input-text" id="buLastName" name="lastName" value=""/>
+                              <small id="lastNameHelp" class="form-text text-danger" style="display:none" th:text="#{message.lastName}">Last name cannot be empty.</small>
+                          </div>
+                          <div class="form-group">
+                              <label for="buEmail" class="col-form-label mt-3" th:text="#{label.user.email}">email</label>
+                              <input type="email" class="form-control bu-input-text" id="buEmail" name="email" value=""/>
+                              <small id="emailHelp" class="form-text text-danger" style="display:none">Invalid email.</small>
+                          </div>
+                          <div class="form-group">
+                              <label for="buPassword" class="col-form-label mt-3" th:text="#{label.user.password}">password</label>
+                              <input class="form-control bu-input-text" id="buPassword" name="password" type="password" value=""/>
+                              <small id="passwordHelp" class="form-text text-danger" style="display:none">Password doesn't match.</small>
+                          </div>
+                          <div class="form-group">
+                              <label for="buPasswordRepeat" class="col-form-label mt-3" th:text="#{label.user.confirmPass}">confirm</label>
+                              <input class="form-control bu-input-text" id="buPasswordRepeat" type="password" name="matchingPassword" value=""/>
+                              <small id="passwordMatchHelp" class="form-text text-danger" style="display:none">Password doesn't match.</small>
+                          </div>
+                          <div class="form-group">
+                              <label for="buPTCName" class="col-form-label mt-3" th:text="#{label.user.ptcName}">Training center name</label>
+                              <input class="form-control bu-input-text" id="buPTCName" type="text" name="ptcName" value=""/>
+                              <small id="ptcNameHelp" class="form-text text-danger" style="display:none">The name cannot be empty.</small>
+                          </div>
+                          <button class="btn bu-bg-gray bu-color-white bu-btn mt-3 mb-3 ml-auto pl-4 pr-4 float-right mt-3"
+                                  type="submit"
+                                  th:text="#{label.form.submit}">submit</button>
+                      </form>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <script th:inline="javascript">
+var serverContext = [[@{/}]];
+var helpersText = ["#emailHelp","#firstNameHelp","#lastNameHelp","#passwordHelp","#passwordMatchHelp"];
+$(document).ready(function () {
+	$('form').submit(function(event) {
+	console.log("calling register")
+		register(event);
+
+	});
+});
+
+function register(event){
+	event.preventDefault();
+    $(".alert").html("").hide();
+    $(".error-list").html("");
+    if($("#password").val() != $("#matchPassword").val()){
+    	$("#globalError").show().html(/*[[#{PasswordMatches.user}]]*/);
+    	return;
+    }
+    var formData= $('form').serialize();
+    console.log(JSON.stringify(formData));
+    $.post("/registration",formData ,function(data){
+        console.log(JSON.stringify(data));
+        if(data.message == "success"){
+            window.location.href = "/successRegister?token="+data.token;
+        }
+
+    })
+    .fail(function(data) {
+        console.log(JSON.stringify(data));
+        helpersText.forEach(function(helper){
+            $(helper).css("display", "none");
+        })
+        if(data.responseJSON.error.indexOf("MailError") > -1)
+        {
+            window.location.href = serverContext + "emailError.html";
+        }
+        else if(data.responseJSON.error == "UserAlreadyExist"){
+            $("#emailHelp").css("display", "inline-block").html(data.responseJSON.message);
+        }
+        else if(data.responseJSON.error.indexOf("InternalError") > -1){
+            window.location.href = serverContext + "login?message=" + data.responseJSON.message;
+        }
+        else{
+        	var errors = $.parseJSON(data.responseJSON.message);
+        	console.log(JSON.stringify(errors));
+            $.each( errors, function( index,item ){
+            	if (item.field){
+            		$("#"+item.field+"Help").css("display", "block").html(item.defaultMessage);
+            	}
+            	else {
+            		$("#passwordHelp").css("display", "block").html(item.defaultMessage);
+            	}
+
+            });
+        }
+    });
+}
+</script>
+    </body>
+</html>
