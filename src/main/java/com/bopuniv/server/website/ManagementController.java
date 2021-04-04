@@ -8,7 +8,13 @@ import com.bopuniv.server.website.util.GenericResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.awt.print.PrinterGraphics;
@@ -18,6 +24,35 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@RestController
+@RequestMapping("/management")
+class SessionManagement{
+
+    /**
+     * The admin frontend is served on /management endpoint. The web server is in charge of serving that page.
+     * This endpoint exist here so a 404 is not return while working on development
+     * @return
+     */
+    @GetMapping("")
+    public String homeMangement(){
+        return "Home management";
+    }
+
+    /**
+     *
+     * @param principal
+     * @return @UserSession
+     * Retrieve the user session
+     */
+    @GetMapping("/_session")
+    public UserSession session(Principal principal){
+        return new UserSession(principal.getName());
+    }
+}
+
+/**
+ *
+ */
 @RestController
 @RequestMapping("/management/api/v1")
 public class ManagementController {
@@ -49,12 +84,31 @@ public class ManagementController {
     @Autowired
     ICareerService careerService;
 
+    @Autowired
+    IStorageService storageService;
+
     private final Logger LOGGER = LoggerFactory.getLogger(getClass());
 
     @GetMapping("")
     public String adminPage(Principal principal){
         System.out.println("Admin controller for : "+principal.getName());
         return "admin";
+    }
+
+    @PostMapping("/files")
+    public FileUpload handleFileUpload(@RequestParam("file") MultipartFile file) {
+
+        String destFileName = storageService.store(file);
+        return new FileUpload(file.getOriginalFilename(), destFileName, file.getSize());
+    }
+
+    @GetMapping("/files/{filename:.+}")
+    @ResponseBody
+    public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
+
+        Resource file = storageService.loadAsResource(filename);
+        return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
+                "attachment; filename=\"" + file.getFilename() + "\"").body(file);
     }
 
     /**
@@ -68,6 +122,7 @@ public class ManagementController {
     @PutMapping("/ptc/{ptcId}")
     public PTCDto newPTC(@RequestBody @Valid PTCDto ptcDto, @PathVariable Long ptcId, Principal principal){
 
+        LOGGER.info("Updating a PTC");
         User user = userService.findUserByEmail(principal.getName());
         if(!user.getPtc().getPtcId().equals(ptcId) || !user.getPtc().getPtcId().equals(ptcDto.getPtcId()))
             throw new IllegalUserAccess();

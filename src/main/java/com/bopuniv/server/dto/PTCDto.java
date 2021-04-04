@@ -4,6 +4,7 @@ import com.bopuniv.server.entities.PTC;
 import com.bopuniv.server.validation.ValidEmail;
 import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
 
+import javax.persistence.Lob;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Objects;
@@ -19,6 +20,10 @@ public class PTCDto {
     private String shortName = "";
 
     private String logoUrl;
+
+    private String logoName;
+
+    private String description;
 
     @ValidEmail
     private String email;
@@ -37,22 +42,29 @@ public class PTCDto {
 
     private String websiteUrl = "";
 
+    private String latitude;
+
+    private String longitude;
 
     public PTCDto(){}
 
     public PTCDto(PTC ptc){
         email = ptc.getEmail();
-        country = ptc.getCountry();
-        facebookHandler = ptc.getFacebookHandler();
-        instagramHandler = ptc.getInstagramHandler();
-        linkedInHandler = ptc.getLinkedInHandler();
-        twitterHandler = ptc.getTwitterHandler();
-        websiteUrl = ptc.getWebsiteUrl();
-        logoUrl = ptc.getLogoUrl();
-        longName = ptc.getLongName();
-        phoneNumber = ptc.getPhoneNumber();
+        country = ptc.getCountry() == null ? "":ptc.getCountry();
+        facebookHandler = ptc.getFacebookHandler() == null ? "":ptc.getFacebookHandler();
+        instagramHandler = ptc.getInstagramHandler() == null ? "":ptc.getInstagramHandler();
+        linkedInHandler = ptc.getLinkedInHandler() == null ? "":ptc.getLinkedInHandler();
+        twitterHandler = ptc.getTwitterHandler() == null ? "":ptc.getTwitterHandler();
+        websiteUrl = ptc.getWebsiteUrl() == null ? "":ptc.getWebsiteUrl();
+        logoUrl = ptc.getLogoUrl() == null ? "":ptc.getLogoUrl();
+        longName = ptc.getLongName() == null ? "":ptc.getLongName();
+        phoneNumber = ptc.getPhoneNumber() == null ? "":ptc.getPhoneNumber();
         ptcId = ptc.getPtcId();
-        shortName = ptc.getShortName();
+        shortName = ptc.getShortName() == null ? "":ptc.getShortName();
+        description = ptc.getDescription() == null ? "":ptc.getDescription();
+        logoName = ptc.getLogoName() == null ? "":ptc.getLogoName();
+        latitude = ptc.getLatitude() == null ? "":ptc.getLatitude();
+        longitude = ptc.getLongitude() == null ? "":ptc.getLongitude();
     }
     public Long getPtcId() {
         return ptcId;
@@ -152,6 +164,38 @@ public class PTCDto {
         this.websiteUrl = websiteUrl;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getLogoName() {
+        return logoName;
+    }
+
+    public void setLogoName(String logoName) {
+        this.logoName = logoName;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
+
     @Override
     public String toString() {
         return "PTCDto{" +
@@ -159,6 +203,8 @@ public class PTCDto {
                 ", longName='" + longName + '\'' +
                 ", shortName='" + shortName + '\'' +
                 ", logoUrl='" + logoUrl + '\'' +
+                ", logoName='" + logoName + '\'' +
+                ", description='" + description + '\'' +
                 ", email='" + email + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", country='" + country + '\'' +
@@ -167,6 +213,8 @@ public class PTCDto {
                 ", instagramHandler='" + instagramHandler + '\'' +
                 ", linkedInHandler='" + linkedInHandler + '\'' +
                 ", websiteUrl='" + websiteUrl + '\'' +
+                ", latitude='" + latitude + '\'' +
+                ", longitude='" + longitude + '\'' +
                 '}';
     }
 

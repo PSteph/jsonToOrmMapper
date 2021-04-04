@@ -71,7 +71,7 @@ public class UserService implements IUserService {
             throw new UserAlreadyExistException("There is an account with that email address: " + accountDto.getEmail());
         }
 
-        PTC ptc = iPtcService.save(accountDto.getPtcName(), accountDto.getEmail());
+        PTC ptc = iPtcService.save(accountDto.getPtcName(), accountDto.getEmail(), accountDto.getPtcDesc());
 
         final User user = new User();
 

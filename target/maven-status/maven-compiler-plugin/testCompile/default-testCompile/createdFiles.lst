@@ -1,0 +1,6 @@
+com/bopuniv/server/unitTest/ManagementControllerTest.class
+com/bopuniv/server/unitTest/TestingWebApplicationTests.class
+com/bopuniv/server/integration/DepartmentIntegrationTest.class
+com/bopuniv/server/ManagementControllerTest.class
+com/bopuniv/server/ServerApplicationTests.class
+com/bopuniv/server/integration/TrainingIntegrationTest.class

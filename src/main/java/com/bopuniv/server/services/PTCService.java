@@ -41,11 +41,12 @@ public class PTCService implements IPtcService {
     }
 
     @Override
-    public PTC save(String ptcName, String email){
+    public PTC save(String ptcName, String email, String desc){
 
         PTC ptc = new PTC();
         ptc.setLongName(ptcName);
         ptc.setEmail(email);
+        ptc.setDescription(desc);
         repository.save(ptc);
 
         return repository.findByLongName(ptcName);
@@ -57,15 +58,19 @@ public class PTCService implements IPtcService {
 
         ptc.setCountry(ptcDto.getCountry());
         ptc.setEmail(ptcDto.getEmail());
+        ptc.setDescription(ptcDto.getDescription());
         ptc.setTwitterHandler(ptcDto.getTwitterHandler());
         ptc.setFacebookHandler(ptcDto.getFacebookHandler());
         ptc.setInstagramHandler(ptcDto.getInstagramHandler());
         ptc.setLogoUrl(ptcDto.getLogoUrl());
+        ptc.setLogoName(ptcDto.getLogoName());
         ptc.setLongName(ptcDto.getLongName());
         ptc.setPhoneNumber(ptcDto.getPhoneNumber());
         ptc.setShortName(ptcDto.getShortName());
         ptc.setLinkedInHandler(ptcDto.getLinkedInHandler());
         ptc.setWebsiteUrl(ptcDto.getWebsiteUrl());
+        ptc.setLatitude(ptcDto.getLatitude());
+        ptc.setLongitude(ptcDto.getLongitude());
         repository.save(ptc);
     }
 

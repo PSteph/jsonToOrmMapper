@@ -35,6 +35,9 @@ public class UserDto {
     @Size(min = 1, message = "Name cannot be empty")
     private String ptcName;
 
+    @NotNull
+    private String ptcDesc;
+
     private boolean isUsing2FA;
 
     public String getEmail() {
@@ -98,6 +101,14 @@ public class UserDto {
     @NonNull
     public String getPtcName() {
         return ptcName;
+    }
+
+    public String getPtcDesc() {
+        return ptcDesc;
+    }
+
+    public void setPtcDesc(String ptcDesc) {
+        this.ptcDesc = ptcDesc;
     }
 
     public void setPtcName(@NonNull String ptcName) {

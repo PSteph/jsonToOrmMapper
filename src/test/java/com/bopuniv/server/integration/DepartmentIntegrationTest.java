@@ -37,8 +37,8 @@ public class DepartmentIntegrationTest {
 
     @Before
     public void before() {
-        ptc1 = new PTC("Testing PTC 1", "email@email.com");
-        ptc2 = new PTC("Testing PTC 2", "email2@email.com");
+        ptc1 = new PTC("Testing PTC 1", "email@email.com", "test description");
+        ptc2 = new PTC("Testing PTC 2", "email2@email.com", "test description 2");
         dept1 = new Department("Department 1", "description of department 1", ptc1);
         dept2 = new Department("Department 2", "description of department 2", ptc1);
         dept3 = new Department("Department 3", "description of department 3", ptc1);

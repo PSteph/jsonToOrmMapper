@@ -39,7 +39,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     public void configure(AuthenticationManagerBuilder auth)
             throws Exception {
-        auth
+            auth
                 .userDetailsService(userDetailsService)
                 .passwordEncoder(new PasswordEncoder() {
 
@@ -68,6 +68,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/h2/**").permitAll()
                 .antMatchers("/").permitAll()
                 .antMatchers("/search/**").permitAll()
+                .antMatchers("/files/**").permitAll()
                 .antMatchers("/trainings").permitAll()
                 .antMatchers("/universities").permitAll()
                 .antMatchers("/highSchools").permitAll()
@@ -76,7 +77,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/registration", "/adminPage").permitAll()
                 .antMatchers("/register", "/successRegister", "/registrationConfirm").permitAll()
                 .anyRequest().authenticated()
-                .and().formLogin().loginPage("/login").defaultSuccessUrl("/management/api/v1").permitAll()
+                .and().formLogin()
+                            .loginPage("/login")
+                            .defaultSuccessUrl("/management")
+                            .permitAll()
                 .and().logout().permitAll()
                 .and()
                 .headers().frameOptions().disable(); // to fully enable h2 console interface

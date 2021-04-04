@@ -11,6 +11,7 @@ import com.bopuniv.server.entities.User;
 import com.bopuniv.server.listners.OnRegistrationCompleteEvent;
 import com.bopuniv.server.repository.TrainingRepository;
 import com.bopuniv.server.services.IRegistrationTokenService;
+import com.bopuniv.server.services.IStorageService;
 import com.bopuniv.server.services.IUserService;
 import com.bopuniv.server.website.util.GenericResponse;
 import com.bopuniv.server.website.util.RegistrationConfirm;
@@ -19,9 +20,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.MessageSource;
+import org.springframework.core.io.Resource;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.query.Param;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -58,6 +62,9 @@ public class FrontController {
 
     @Autowired
     TrainingRepository trainingRepository;
+
+    @Autowired
+    IStorageService storageService;
 
     @GetMapping("/")
     public String homePage(Model model, Authentication authentication){
@@ -107,11 +114,14 @@ public class FrontController {
         return "search";
     }
 
-//    @GetMapping("/login")
-//    public String loginPage(){
-//
-//        return "login";
-//    }
+    @GetMapping("/files/{filename:.+}")
+    @ResponseBody
+    public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
+
+        Resource file = storageService.loadAsResource(filename);
+        return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
+                "attachment; filename=\"" + file.getFilename() + "\"").body(file);
+    }
 
     @GetMapping("/login")
     public String login(Model model, String error, String logout) {
@@ -126,8 +136,22 @@ public class FrontController {
 
         model.addAttribute("isIndex", false);
         return "login";
-
     }
+
+//    @GetMapping("/login")
+//    public String login(){
+//        return "/management";
+//    }
+
+//    @PostMapping("/perform_login")
+//    public String performLogin(@Valid final LoginDto loginDto,
+//                               HttpServletRequest request, Model model){
+//
+//        LOGGER.info("login user");
+//        LOGGER.info(loginDto.toString());
+//
+//        return "";
+//    }
 
     @GetMapping("/public/search")
     public SearchResult<TrainingDto> search(@RequestParam(defaultValue = "0") int offset,
@@ -167,7 +191,7 @@ public class FrontController {
         RegistrationToken registrationToken = new RegistrationToken();
         registrationToken.setEmail(userDto.getEmail());
         regTokenService.save(registrationToken);
-//        return new GenericResponse("success");
+
         return new RegistrationConfirm(registrationToken.getToken());
 
     }

@@ -35,6 +35,9 @@ public class PTC {
 
     private String country;
 
+    @Column(length = 1024)
+    private String description;
+
     @Column(name = "twitter_handler")
     private String twitterHandler;
 
@@ -49,6 +52,10 @@ public class PTC {
 
     @Column(name = "website_url")
     private String websiteUrl;
+
+    private String latitude;
+
+    private String longitude;
 
     @Transient
     @OneToMany(mappedBy = "ptc", fetch= FetchType.LAZY)
@@ -68,6 +75,9 @@ public class PTC {
     @Column(name = "last_modified")
     private LocalDateTime lastModified;
 
+    @Column(name = "logo_name")
+    private String LogoName;
+
     public PTC(){}
 
     public PTC(Long ptcId, String longName, String email, String phoneNumber, String country, LocalDateTime createdOn) {
@@ -79,9 +89,10 @@ public class PTC {
         this.createdOn = createdOn;
     }
 
-    public PTC(String longName, String email){
+    public PTC(String longName, String email, String description){
         this.longName = longName;
         this.email = email;
+        this.description = description;
     }
 
     public LocalDateTime getCreatedOn() {
@@ -220,6 +231,38 @@ public class PTC {
         this.users = users;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getLogoName() {
+        return LogoName;
+    }
+
+    public void setLogoName(String logoName) {
+        LogoName = logoName;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -243,14 +286,20 @@ public class PTC {
                 ", email='" + email + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", country='" + country + '\'' +
+                ", description='" + description + '\'' +
                 ", twitterHandler='" + twitterHandler + '\'' +
                 ", facebookHandler='" + facebookHandler + '\'' +
                 ", instagramHandler='" + instagramHandler + '\'' +
                 ", linkedInHandler='" + linkedInHandler + '\'' +
                 ", websiteUrl='" + websiteUrl + '\'' +
+                ", latitude='" + latitude + '\'' +
+                ", longitude='" + longitude + '\'' +
                 ", departments=" + departments +
                 ", campuses=" + campuses +
                 ", users=" + users +
+                ", createdOn=" + createdOn +
+                ", lastModified=" + lastModified +
+                ", LogoName='" + LogoName + '\'' +
                 '}';
     }
 }

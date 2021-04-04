@@ -10,7 +10,7 @@ import java.util.Optional;
 public interface IPtcService {
     void save(PTCDto ptcDto);
     void update(PTCDto ptcDto, User user);
-    PTC save(String ptcName, String email);
+    PTC save(String ptcName, String email, String desc);
     PTC findById(Long id);
     List<PTC> findAll();
 }

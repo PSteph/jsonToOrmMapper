@@ -16,7 +16,9 @@ public interface ITrainingService {
     List<Training> searchByPtcIdPaging(Long ptcId, Long limit, Long offset);
     List<Training> searchByDegreeAndDepartmentIdAndCampusIdAndPtcIdPaging(String degree, Long deptId, Long campusId, Long ptcId, Long limit, Long offset);
     List<Training> searchByActivityDomainPaging(Long limit, Long offset, String activityDomain);
+    List<Training> searchByActivityDomainAndPublishedPaging(Long limit, Long offset, String activityDomain);
     List<Training> searchAllPage(Long limit, Long offset);
+    List<Training> searchAllPublishedPage(Long limit, Long offset);
     Long countByDegreeAndDepartmentIdAndCampusIdAndPtcIdPaging(String degree, Long deptId, Long campusId, Long ptcId);
     void delete(Long trainingId);
     void deleteTrainings(List<Long> trainingIds);

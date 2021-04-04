@@ -1,14 +1,18 @@
 package com.bopuniv.server.website;
 
+import com.bopuniv.server.dto.PTCDto;
 import com.bopuniv.server.dto.SearchResult;
 import com.bopuniv.server.dto.TrainingDto;
+import com.bopuniv.server.entities.PTC;
+import com.bopuniv.server.entities.Training;
 import com.bopuniv.server.services.ActivitiesDomain;
+import com.bopuniv.server.services.IPtcService;
 import com.bopuniv.server.services.ITrainingService;
+import com.bopuniv.server.services.PTCService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.LocaleResolver;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,11 +27,16 @@ import java.util.stream.Collectors;
 @RequestMapping("/search/v1")
 public class SearchApiController {
 
+    private final Logger LOGGER = LoggerFactory.getLogger(getClass());
+
     @Autowired
     private ActivitiesDomain activitiesDomain;
 
     @Autowired
     private ITrainingService trainingService;
+
+    @Autowired
+    private IPtcService ptcService;
 
     @Autowired
     private LocaleResolver localeResolver;
@@ -39,31 +48,52 @@ public class SearchApiController {
                                                     @RequestParam(defaultValue = "") String domain){
 
         List<TrainingDto> trainings;
-        if(domain.isEmpty())
-            trainings = trainingService.searchAllPage(limit, offset)
+
+        if(domain.trim().isEmpty())
+            trainings = trainingService.searchAllPublishedPage(limit, offset)
                                             .stream()
-                                            .map(TrainingDto::new)
+                                            .map(t -> {
+                                                System.out.println(t);
+                                                TrainingDto trainingDto = new TrainingDto(t);
+                                                trainingDto.setPtc(new PTCDto(t.getDepartment().getPtc()));
+                                                return trainingDto;
+                                            })
                                             .collect(Collectors.toList());
         else
-            trainings = trainingService.searchByActivityDomainPaging(limit, offset, domain)
+            trainings = trainingService.searchByActivityDomainAndPublishedPaging(limit, offset, domain.trim())
                     .stream()
-                    .map(TrainingDto::new)
+                    .map(t -> {
+                        System.out.println(t);
+                        TrainingDto trainingDto = new TrainingDto(t);
+                        trainingDto.setPtc(new PTCDto(t.getDepartment().getPtc()));
+                        return trainingDto;
+                    })
                     .collect(Collectors.toList());
+
+//        System.out.println(trainings);
 
         return new SearchResult<>(0, 0,0, trainings);
     }
 
+    @GetMapping("/trainings/{tId}")
+    public SearchResult<TrainingDto> getTraining(@PathVariable Long tId){
+        Training training = trainingService.findById(tId);
+        TrainingDto trainingDto = new TrainingDto(training);
+        trainingDto.setPtc(new PTCDto(training.getDepartment().getPtc()));
+        return new SearchResult<>(0, 0, 1, Arrays.asList(trainingDto));
+    }
+
     @GetMapping("/domains")
-    public List<String> getDomains(HttpServletRequest request){
+    public SearchResult<String> getDomains(HttpServletRequest request){
         final Locale locale = localeResolver.resolveLocale(request);
         ResourceBundle bundle = ResourceBundle.getBundle("messages", locale);
-//        LocalDate date = LocalDate.of(2020, Month.APRIL, 5);
-//        System.out.println(date.getDayOfYear());
-        return bundle.keySet()
+        List<String> domains = bundle.keySet()
                 .stream()
                 .filter(key->key.startsWith("activity.domain"))
                 .map(bundle::getString)
                 .collect(Collectors.toList());
+
+        return new SearchResult<>(0,0,0, domains);
     }
 
     @GetMapping("/test2")

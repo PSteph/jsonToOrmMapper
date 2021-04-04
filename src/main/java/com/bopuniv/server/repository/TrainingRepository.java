@@ -4,6 +4,7 @@ import com.bopuniv.server.entities.Department;
 import com.bopuniv.server.entities.Training;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,7 +20,10 @@ public interface TrainingRepository extends JpaRepository<Training, Long> {
 //    List<Training> findAllByDegreeLikeAndDepartmentDeptIdAndDepartmentPtcPtcId(String degree, Long deptId, Long ptcId, Pageable page);
     List<Training> findAllByDepartmentInAndDepartmentPtcPtcId(List<Department> departments, Long ptcId, Pageable page);
     List<Training> findAllByDegreeContainingAndDepartmentInAndDepartmentPtcPtcId(String degree, List<Department> departments, Long ptcId, Pageable page);
+
     List<Training> findAllByActivityDomainContaining(String activityDomain, Pageable page);
+    List<Training> findAllByActivityDomainContainingAndPublishedTrue(String activityDomain, Pageable page);
+    List<Training> findAllByPublishedTrue(Pageable page);
 
     long countByDegreeContainingAndDepartmentPtcPtcId(String degree, Long ptcId);
     long countByDegreeContainingAndDepartmentDeptIdAndDepartmentPtcPtcId(String degree, Long deptId, Long ptcId);

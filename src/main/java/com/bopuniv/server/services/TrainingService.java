@@ -4,6 +4,8 @@ import com.bopuniv.server.dto.TrainingDto;
 import com.bopuniv.server.entities.*;
 import com.bopuniv.server.exceptions.TrainingException;
 import com.bopuniv.server.repository.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -19,6 +21,8 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 public class TrainingService implements ITrainingService {
+
+    private final Logger LOGGER = LoggerFactory.getLogger(getClass());
 
     @Autowired
     TrainingRepository repository;
@@ -72,7 +76,6 @@ public class TrainingService implements ITrainingService {
         }
 
         return new TrainingDto(training);
-
     }
 
     private void setTrainingCareer(Long careerId, Training training){
@@ -227,7 +230,15 @@ public class TrainingService implements ITrainingService {
     @Override
     public List<Training> searchByActivityDomainPaging(Long limit, Long offset, String activityDomain){
         Pageable page = PageRequest.of(offset.intValue(), limit.intValue());
+        LOGGER.info(activityDomain);
         return repository.findAllByActivityDomainContaining(activityDomain, page);
+    }
+
+    @Override
+    public List<Training> searchByActivityDomainAndPublishedPaging(Long limit, Long offset, String activityDomain){
+        Pageable page = PageRequest.of(offset.intValue(), limit.intValue());
+        LOGGER.info(activityDomain);
+        return repository.findAllByActivityDomainContainingAndPublishedTrue(activityDomain, page);
     }
 
     @Override
@@ -235,6 +246,12 @@ public class TrainingService implements ITrainingService {
         Pageable page = PageRequest.of(offset.intValue(), limit.intValue());
         Page<Training> pages = repository.findAll(page);
         return pages.get().collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Training> searchAllPublishedPage(Long limit, Long offset) {
+        Pageable page = PageRequest.of(offset.intValue(), limit.intValue());
+        return repository.findAllByPublishedTrue(page);
     }
 
     @Override

@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import javax.naming.SizeLimitExceededException;
 import java.time.LocalDateTime;
 
 @ControllerAdvice
@@ -80,6 +82,12 @@ public class BopUnivResponseEntityExceptionHandler extends ResponseEntityExcepti
         logger.error("403 Status Code", ex);
         final GenericResponse bodyOfResponse = new GenericResponse(messages.getMessage("message.exception.illegalUserAccess", null, request.getLocale()), "You are not allowed to perform this operation");
         return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.FORBIDDEN, request);
+    }
+
+    @ExceptionHandler({MaxUploadSizeExceededException.class})
+    public ResponseEntity<Object> handleSizeLimitExceeded(final MaxUploadSizeExceededException ex, final WebRequest request){
+        final GenericResponse bodyOfResponse = new GenericResponse(messages.getMessage("message.exception.SizeLimitExceededException", null, request.getLocale()));
+        return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
 
     @ExceptionHandler({ EnvironmentVariableException.class })

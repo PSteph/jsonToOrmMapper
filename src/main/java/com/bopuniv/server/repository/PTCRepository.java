@@ -21,4 +21,5 @@ public interface PTCRepository extends JpaRepository<PTC, Long> {
 
 //    Optional<PTC> findByPtcIdAndUsers(Long ptcId, User user);
 //    Optional<PTC> findByPtcIdAndDepartmentsAndUsers(Long ptcId, Department department, User user);
+//    Optional<PTC> findByDepartmentsTrainingTrainingId(Long trainingId);
 }

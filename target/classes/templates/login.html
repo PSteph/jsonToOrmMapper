@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+        integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+        crossorigin=""/>
+
+    <link rel="stylesheet" href="css/style.css">
+    <title>BopUniv</title>
+  </head>
+  <body class="bu-bg-light-blue">
+
+    <div th:replace="~{fragments/header :: header}">Header</div>
+
+    <div class="main mt-5">
+        <div class="container">
+            <div class="row justify-content-center no-gutters">
+            <div class="col-9 col-sm-7 col-md-5 bu-bg-white">
+              <div class="row no-gutters bu-bg-primary">
+                  <div class="col-12 p-3 mx-auto">
+                      <img src="images/logo.png" width="100">
+                  </div>
+              </div>
+              <div class="row no-gutters">
+                  <div class="col-12 p-4">
+                    <form method="POST" enctype="utf8">
+                        <p class="bu-color-primary pb-3" th:text="${error}"></p>
+                        <p class="" th:text="${message}"></p>
+                        <div class="form-group row">
+                          <label for="buEmail" class="col-sm-3 col-form-label">Email</label>
+                          <div class="col-sm-9">
+                            <input type="text" class="form-control bu-input-text" id="buEmail" name="username">
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label for="buPassword" class="col-sm-3 col-form-label">Password</label>
+                          <div class="col-sm-9">
+                            <input type="password" class="form-control bu-input-text" id="buPassword" name="password">
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-12">
+                                <button type="submit" class="btn bu-bg-gray bu-color-white bu-btn ml-auto pl-4 pr-4 float-right" th:text="#{label.form.signIn}">Sign in</button>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group row">
+                            <div class="col-12">
+                                <span class="">
+                                    Forgot your password? <a href="">Reset here</a>
+                                </span>
+                            </div>
+                        </div>
+
+                        <a href="/registration" class="bu-color-gray font-weight-bold">Register</a>
+                      </form>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+        integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+        crossorigin=""></script>
+    </body>
+</html>
