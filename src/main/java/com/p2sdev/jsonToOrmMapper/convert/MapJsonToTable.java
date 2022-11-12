@@ -97,6 +97,11 @@ public class MapJsonToTable {
 		// Then check if it is a Character
 		try {
 			if(data.length() == 1) {
+				try {
+					Integer.parseInt(data);
+					return JSONTypes.INTEGER;
+				}catch(Exception e) {}
+
 				data.charAt(0);
 				return JSONTypes.STRING;
 			}
@@ -174,7 +179,7 @@ public class MapJsonToTable {
 		/**
 		 * Check if the data object can be converted into a table and convert if convertible
 		 * To be converted into a table the data Object should have one or more @DataTypes
-		 * @param key : Used as table name.
+		 * @param tableName : Used as table name.
 		 * @param attributes : a mapping of JSON keys to @JSONTypes
 		 * @param json : a json Object from the source data that will be converted into a @Table
 		 */

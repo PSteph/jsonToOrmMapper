@@ -59,18 +59,16 @@ public class AppTest
     
     @DisplayName("Testing a valid JSONObject")
     public void testValidJSONObject() {
-    	String expected = "from django.db import models\r\n" + 
-    			"\r\n" + 
-    			"class Person(models.Model):\r\n" + 
-    			"	person_id = models.AutoField(primary_key=True)\r\n" + 
-    			"	f_name = models.CharField(max_length=100)\r\n" + 
-    			"	l_name = models.CharField(max_length=100)\r\n" + 
-    			"	\r\n" + 
-    			"";
+    	String expected = "from django.db import modelsclass" +
+                " Person(models.Model):" +
+                "person_id = models.AutoField(primary_key=True)" +
+                "f_name = models.CharField(max_length=100)" +
+                "p_id = models.IntegerField()" +
+                "l_name = models.CharField(max_length=100)";
     	
     	expected = expected.replaceAll("\\n|\\r\\n|\\r|\\t", "");
     	
-    	String actual = new JSONToConverter("{'person': {'f_name':'John', 'l_name':'Doe'} }").getORMModel(ORMModel.DJANGO_MODEL);
+    	String actual = new JSONToConverter("{'person': {'f_name':'John', 'l_name':'Doe', 'p_id':1} }").getORMModel(ORMModel.DJANGO_MODEL);
     	actual = actual.replaceAll("\\n|\\r\\n|\\r|\\t", "");
     	
     	assertEquals(expected, actual);

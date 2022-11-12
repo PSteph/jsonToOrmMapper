@@ -15,7 +15,7 @@ public class App {
     		CommandLine.run(args);
     	
     	else {
-    		String content = "{ 'person': {'f_name':'John', 'l_name':'Doe'} }";
+    		String content = "{ 'person': {'f_name':'John', 'l_name':'Doe', 'p_id':1} }";
     		System.out.println(new JSONToConverter(content).getORMModel(ORMModel.DJANGO_MODEL));
     	}
     }
