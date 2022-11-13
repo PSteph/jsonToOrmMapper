@@ -4,13 +4,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
+import com.p2sdev.jsonToOrmMapper.enums.Cardinalities;
+import com.p2sdev.jsonToOrmMapper.enums.JSONTypes;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Table {
-	public enum Cardinalities {
-		ONETOONE, ONETOMANY, MANYTOMANY
-	}
+
 	private String tableName;
 	private Map<String, Cardinalities> relationships = new HashMap<>();
 	private Map<String, JSONTypes> tableColumnsDef;
@@ -25,7 +25,7 @@ public class Table {
 	
 	/**
 	 * Constructor for tables that do not have a table name
-	 * @param name
+	 * @param attrs
 	 * @param json
 	 */
 	private Table(Map<String, JSONTypes> attrs, JSONObject json) {
