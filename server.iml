@@ -101,8 +101,7 @@
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.springframework.boot:spring-boot-devtools:2.2.8.BUILD-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot:2.2.8.BUILD-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-autoconfigure:2.2.8.BUILD-SNAPSHOT" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Maven: com.h2database:h2:1.4.200" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Maven: mysql:mysql-connector-java:8.0.20" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: org.postgresql:postgresql:42.2.14" level="project" />
     <orderEntry type="library" name="Maven: org.jboss.aerogear:aerogear-otp-java:1.0.0" level="project" />
     <orderEntry type="library" name="Maven: com.maxmind.geoip2:geoip2:2.12.0" level="project" />
     <orderEntry type="library" name="Maven: com.maxmind.db:maxmind-db:1.2.2" level="project" />
