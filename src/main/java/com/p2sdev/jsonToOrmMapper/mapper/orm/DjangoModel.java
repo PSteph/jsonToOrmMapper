@@ -3,6 +3,7 @@ package com.p2sdev.jsonToOrmMapper.mapper.orm;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import com.p2sdev.jsonToOrmMapper.enums.JSONTypes;
 import com.p2sdev.jsonToOrmMapper.convert.Table;
@@ -79,7 +80,7 @@ public class DjangoModel implements ORM{
 			.append(Model.PRIMARY_KEY.getValue())
 			.append("\n\t");
 		
-		Map<String, JSONTypes> tableColumnsDef = table.getTableColumnsDef();
+		Map<String, JSONTypes> tableColumnsDef = new TreeMap<>(table.getTableColumnsDef());
 		
 		for(String key : tableColumnsDef.keySet()) {
 			switch(tableColumnsDef.get(key)) {

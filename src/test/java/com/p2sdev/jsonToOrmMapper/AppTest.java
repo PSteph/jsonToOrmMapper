@@ -63,8 +63,8 @@ public class AppTest
                 " Person(models.Model):" +
                 "person_id = models.AutoField(primary_key=True)" +
                 "f_name = models.CharField(max_length=100)" +
-                "p_id = models.IntegerField()" +
-                "l_name = models.CharField(max_length=100)";
+                "l_name = models.CharField(max_length=100)" +
+                "p_id = models.IntegerField()";
     	
     	expected = expected.replaceAll("\\n|\\r\\n|\\r|\\t", "");
     	
